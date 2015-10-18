@@ -64,7 +64,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<a class="brand" href="/tmch/newLogin" name="top"><img src="<%=request.getContextPath()%>/resources/img/mother.png" width="30" height="30"></a>
+					<a class="brand" href="/tmch/login" name="top"><img src="<%=request.getContextPath()%>/resources/img/mother.png" width="30" height="30"></a>
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
 							<li class="dropdown">
@@ -78,7 +78,7 @@
 										<input id="loginbtn" type="submit" class="btn btn-primary btn-block" value="เข้าสู่ระบบ">
 										<label style="text-align:center;margin-top:5px">หรือ</label>
 										<a href="/tmch/newSearchOrg" class="btn btn-primary btn-block">ลงทะเบียนเจ้าหน้าที่</a>
-										<a href="/tmch/newRegisMemb" class="btn btn-primary btn-block">ลงทะเบียนสมาชิก</a>
+										<a href="/tmch/registerMomber" class="btn btn-primary btn-block">ลงทะเบียนสมาชิก</a>
 									</form>
 									
 								</div>

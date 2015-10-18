@@ -69,21 +69,6 @@
 	      	}
 	    }
     </style>
-	<script type="text/javascript">
-	$(document).ready(function(){
-		var options={
-				currentPage: 3,
-	            totalPages: 10,
-	            pageUrl: function(type, page, current){
-
-	                return 'getsdfsdf?page='+page;//"http://example.com/list/page/"+page;
-
-	            }
-		}
-		$('#paging').bootstrapPaginator(options);
-	});
-	
-	</script>
 </head>
 	<body>
 

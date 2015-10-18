@@ -61,7 +61,7 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</a>
-					<a class="brand" href="/tmch/newIndex" name="top"><img src="<%=request.getContextPath()%>/resources/img/mother.png" width="30" height="30"></a>
+					<a class="brand" href="/tmch/index" name="top"><img src="<%=request.getContextPath()%>/resources/img/mother.png" width="30" height="30"></a>
 					<div class="nav-collapse collapse">
 						<ul class="nav pull-right">
 							<li class="dropdown">

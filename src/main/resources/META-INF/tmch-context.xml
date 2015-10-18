@@ -20,13 +20,33 @@
 			</list>
 		</property>
 	</bean>
-	<!-- Initialization for DataSource -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+		destroy-method="close">
 		<property name="driverClassName" value="${database.driverClassName}" />
 		<property name="url" value="${database.url}" />
 		<property name="username" value="${database.username}" />
 		<property name="password" value="${database.password}" />
+		<property name="validationQuery" value="SELECT * from user_model" />
+	</bean>
+	<!-- Initialization for DataSource -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- <property name="schemaUpdate" value="true" /> -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> <prop key="hibernate.validator.apply_to_ddl">false</prop> 
+					<prop key="hibernate.validator.autoregister_listeners">false</prop> -->
+			</props>
+		</property>
+		<property name="packagesToScan">
+			<list>
+				<value>com.mycompany.tmch.model</value>
+			</list>
+		</property>
 	</bean>
 	<!-- Initialization for JavaMail -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
@@ -34,20 +54,27 @@
 		<property name="port" value="${javamail.port}" />
 		<property name="username" value="${javamail.username}" />
 		<property name="password" value="${javamail.password}" />
-	 
+
 		<property name="javaMailProperties">
-		   <props>
-       	      <prop key="mail.smtp.auth">true</prop>
-       	      <prop key="mail.smtp.starttls.enable">true</prop>
-	       </props>
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
 		</property>
 	</bean>
 	<bean id="sentMail" class="com.mycompany.tmch.util.SentMail">
 		<property name="mailSender" ref="mailSender" />
 	</bean>
 	<!-- Initialization for TransactionManager -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+	 	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	<tx:annotation-driven transaction-manager="transactionManager" />
+ 	 <bean id="persistenceExceptionTranslationPostProcessor"
+    class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+    
+    <bean id="userdao" class="com.mycompany.tmch.dao.impl.UserDaoImpl" />
+    <bean id="userService" class="com.mycompany.tmch.service.impl.UserServiceImpl"/>
+    
 </beans>

@@ -35,7 +35,7 @@
 	    <!-- body -->
 	    <div class="container marketing">
 			<div id="legend">
-				<legend>ลงทะเบียนสมาชิก</legend>
+				<legend>คุณแม่สมัครสมาชิก</legend>
 			</div>	
 			<div class="container">
   				<div class="row">
@@ -96,7 +96,7 @@
 					          	<div class="control-group">
 					            	<div class="controls">
 					              		<button id="registmombtn" type="button" class="btn btn-primary">ลงทะเบียนสมาชิก</button>
-					              		<a href="/tmch/newIndex" class="btn btn-primary">ยกเลิก</a>
+					              		<a href="/tmch/index" class="btn btn-primary">ยกเลิก</a>
 					            	</div>
 					          	</div>          
        						</fieldset>
