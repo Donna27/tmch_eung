@@ -15,7 +15,7 @@
 		<property name="locations">
 			<list>
 				<value>classpath:/META-INF/database.properties</value>
-				<!-- <value>classpath:/META-INF/javamail.properties</value> -->
+				<value>classpath:/META-INF/javamail.properties</value>
 				<!-- <value>classpath:/META-INF/quartz.properties</value> -->
 			</list>
 		</property>
@@ -27,6 +27,23 @@
 		<property name="url" value="${database.url}" />
 		<property name="username" value="${database.username}" />
 		<property name="password" value="${database.password}" />
+	</bean>
+	<!-- Initialization for JavaMail -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${javamail.host}" />
+		<property name="port" value="${javamail.port}" />
+		<property name="username" value="${javamail.username}" />
+		<property name="password" value="${javamail.password}" />
+	 
+		<property name="javaMailProperties">
+		   <props>
+       	      <prop key="mail.smtp.auth">true</prop>
+       	      <prop key="mail.smtp.starttls.enable">true</prop>
+	       </props>
+		</property>
+	</bean>
+	<bean id="sentMail" class="com.mycompany.tmch.util.SentMail">
+		<property name="mailSender" ref="mailSender" />
 	</bean>
 	<!-- Initialization for TransactionManager -->
 	<bean id="transactionManager"
