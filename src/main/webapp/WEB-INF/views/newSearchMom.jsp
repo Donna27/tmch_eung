@@ -66,10 +66,8 @@
     <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/resources/DT_bootstrap.css">
 	<script type="text/javascript" src="<%=request.getContextPath()%>/resources/datatable-1.9.4/media/js/jquery.dataTables.js"></script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/app/tranformDate.js"></script>
+	<%-- <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/app/testajax.js"></script> --%>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/app/newSearchMom.js"></script>
-	
-	
-
 </head>
 	<body>
 
@@ -78,18 +76,43 @@
 			<div id="legend">
 				<legend>ค้นหารายชื่อแม่</legend>
 			</div>	
-			<!-- <div class="container">
+			 <div class="container">
 				<div class="row">
 			    	<div class="span12">
-			        	<form id="custom-search-form" class="form-search form-horizontal pull-right">
-			            	<div class="input-append span12">
+			        	<form id="custom-search-form" class="form-search form-horizontal pull-left">
+			            	<!-- <div class="input-append span12">
 			                    <input type="text" id="search_query" class="search-query input-block-level" placeholder="ค้นหาข้อมูลแม่">
 			                    <button type="submit" class="btn"><i class="icon-search"></i></button>
-			                </div>
+			                </div> -->
+			               <!--  <div class="row">
+			                	<div class="input-append span1">
+			                		<input type="text" id="search_query" class="search-query input-block-level" placeholder="ค้นหาข้อมูลแม่">
+			                	</div>
+			                </div> -->
+			                <div class="span3">
+					            	<label class="control-label" >ชื่อ</label>
+					            	<div class="controls">
+					              		<input type="text" class="input-medium" id="search_mom_firstname" name="search_mom_firstname">
+					            	</div>
+					         </div>
+					         <div class="span3">
+					            	<label class="control-label" >นามสกุล</label>
+					            	<div class="controls">
+					              		<input type="text" class="input-medium" id="search_mom_lastname" name="search_mom_lastname">
+					            	</div>
+					         </div>
+					         <div class="span3">
+					            	<label class="control-label" >เลขบัตรประชาชน</label>
+					            	<div class="controls">
+					              		<input type="text" class="input-medium" id="search_mom_cid" name="search_mom_cid">
+					            	</div>
+					         </div>
+					         <button type="submit" class="btn"><i class="icon-search"></i></button>
 			            </form>
 			        </div>
 				</div>
-			</div> -->
+			
+			</div>
 			
 			<br>
 			

@@ -1,36 +1,45 @@
 
 $(document).ready(function(){
+	var jsonObj;
 	//$.jqx.theme = "bootstrap";
 	// search mom start
 	// submit form value for search Mom	
-/*	$('#custom-search-form').submit(function(event){
+	$('#custom-search-form').submit(function(event){
 		// Stop form from submitting normally
 		  event.preventDefault();
-		term=$('#search_query').val();//$('#wordMom').serialize(),
+		fisrtname=$('#search_mom_firstname').val();
+		lastname=$('#search_mom_lastname').val();
+		cid=$('#search_mom_cid').val();//$('#wordMom').serialize(),
 		url='/tmch/searchMom';
-		var posting =$.post(url,{term : term});
+		var posting =$.post(url,{fisrtname : fisrtname,lastname:lastname,cid:cid});
 		
 		posting.done(function( record ) {
 		//$( '#momchildTable').empty().append();
 //		    var content = $( data ).find( "#content" );
 //		    $( "#result" ).empty().append( content );
-			jsonObj=$.parseJSON(record);
+			console.log(JSON.stringify(record));
+//			jsonObj=$.getJSON(record);
+//			jsonObj=record;
+			jsonObj=$.parseJSON(JSON.stringify(record));
 			//console.log(record);
-//			alert(data);
+//			alert(JSON.parse(record));
 			var len =jsonObj.length;
 			var txt='';
 			if(len > 0){
 				for(var i=0;i<len;i++){
 					txt+='<tr>'+
-						'<td>'+(i+1)+'</td>'+
-						'<td><a href="newMomProfile?momid='+jsonObj[i].key+'">'+jsonObj[i].f_name+' '+jsonObj[i].l_name+'</a></td>'+
-					'<td style="display:none;">'+jsonObj[i].key.id+'</td>'+
-					'<td>'+transformDateForSetDateField(jsonObj[i].crtd_time)+'</td>'+
-					'<td>'+jsonObj[i].id_13+'</td>'+
-						'<td><a href="newMomProfile?momid='+jsonObj[i].key.id+'">'+jsonObj[i].f_name+' '+jsonObj[i].l_name+'</a></td>'+
-					'<td><a href="newChildList?momid='+jsonObj[i].key.id+'">'+jsonObj[i].amount_child+'  คน</a></td>'+
-						'<td><a href="profileChild?childid=sasdf"></a></td>'+
-						'<td><a href="newMomHistory?momid='+jsonObj[i].key.id+'" class="btn btn-primary btn-small" >ดูบันทึการตั้งครรภ์</a></td>'//<input type="button" class="btn" value="โปรดเถดรัก"></td>'
+						//'<td>'+(i+1)+'</td>'+
+					'<td>'+transformDateForSetDateField(jsonObj[i].mom_create_datetime)+'</td>'+
+					'<td>'+jsonObj[i].mom_cid+'</td>'+
+						'<td><a href="momProfile?momid='+jsonObj[i].mom_id+'">'+jsonObj[i].mom_firstname+' '+jsonObj[i].mom_lastname+'</a></td>'+
+						'<td><a href="newChildList?momid='+jsonObj[i].mom_id+'">'+jsonObj[i].amount_child+'  คน</a></td>'+
+					//'<td style="display:none;">'+jsonObj[i].mom_id+'</td>'+
+					//'<td>'+transformDateForSetDateField(jsonObj[i].mom_create_datetime)+'</td>'+
+					//'<td>'+jsonObj[i].mom_cid+'</td>'+
+						//'<td><a href="newMomProfile?momid='+jsonObj[i].mom_id+'">'+jsonObj[i].mom_firstname+' '+jsonObj[i].mom_lastname+'</a></td>'+
+					//'<td><a href="newChildList?momid='+jsonObj[i].mom_id+'">'+jsonObj[i].amount_child+'  คน</a></td>'+
+					//	'<td><a href="profileChild?childid=sasdf"></a></td>'+
+						'<td><a href="newMomHistory?momid='+jsonObj[i].mom_id+'" class="btn btn-primary btn-small" >ดูบันทึการตั้งครรภ์</a></td>'//<input type="button" class="btn" value="โปรดเถดรัก"></td>'
 						'</tr>';
 				}
 				if(txt!=''){
@@ -49,7 +58,7 @@ $(document).ready(function(){
 		    alert( "error" );
 		  })
 		
-	});*/
+	});
 	
 	
 	// end submit for search
@@ -146,7 +155,7 @@ $(document).ready(function(){
         }
     } );*/
 });
-
+/*
  var jsonObj;
  var otable;
 $(document).ready(function() {
@@ -160,37 +169,24 @@ $(document).ready(function() {
         "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
 		"sPaginationType": "bootstrap",
 		 "bLengthChange": false,
-		/*"oLanguage": {
+		"oLanguage": {
 			"sLengthMenu": "_MENU_ records per page"
-		},*/
+		},
         "sAjaxSource": 'getAllMom',
         "aoColumns": [
-                      {"mData" : "key.id"},
-                      { "mData": "crtd_time",
-        					"mRender" : function(data,type,full){
-        						return transformDateForSetDateField(full.crtd_time);
-        					}},
-        			  { "mData" : "id_13"},
-                      { "mData": "f_name" ,
-                    	  "mRender": function ( data, type, full ) {
-                    		  //var jsonObj=$.parseJSON(type);
-                    		  //jsonObj=full;
-                    		  //console.log(data+' '+full.l_name);
-                    		  return '<a href="newMomProfile?momid='+full.key.id+'">'+full.f_name+' '+full.l_name+'</a>';
-                    	  }
-                      },{
-                    	  "mData" : "amount_child",
-                      },{
-                    	  "mData" : "region"
-                      }
+                      { "mData": "mom_firstname" },
+                      { "mData": "mom_firstname" },
+                      { "mData": "mom_firstname" },
+                      { "mData": "mom_firstname" },
+                      { "mData": "mom_firstname" }
                   ],
                   "oLanguage": {
                       "sSearch": "ชื่อ /เลขบัตรประชาชน"
                   },
-                  "aoColumnDefs": [
-                	  { "bVisible": false, "aTargets": [ 0 ] }
-                      
-                     ],
+//                  "aoColumnDefs": [
+//                	  { "bVisible": false, "aTargets": [ 0 ] }
+//                      
+//                     ],
         "fnServerData": function( sUrl, aoData, fnCallback, oSettings ) {
             oSettings.jqXHR = $.ajax( {
                 "url": sUrl,
@@ -318,9 +314,9 @@ $.extend( $.fn.dataTableExt.oPagination, {
 
 
 
- /* TableTools Bootstrap compatibility
+  TableTools Bootstrap compatibility
  * Required TableTools 2.1+
- */
+ 
 if ( $.fn.DataTable.TableTools ) {
 	// Set the classes that TableTools uses to something suitable for Bootstrap
 	$.extend( true, $.fn.DataTable.TableTools.classes, {
@@ -353,7 +349,7 @@ if ( $.fn.DataTable.TableTools ) {
 		}
 	} );
 }
-
+*/
   
 /* // alert
  function example4() {

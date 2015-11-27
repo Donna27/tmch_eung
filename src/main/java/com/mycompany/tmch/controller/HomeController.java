@@ -2,6 +2,7 @@ package com.mycompany.tmch.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,14 +12,18 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mycompany.tmch.model.User;
+import com.mycompany.tmch.service.UserService;
 import com.mycompany.tmch.util.WebConstant;
 
 /**
@@ -26,6 +31,9 @@ import com.mycompany.tmch.util.WebConstant;
  */
 @Controller
 public class HomeController {
+	
+	@Autowired
+	private UserService userService;
 	
 	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	private static final Log logger = LogFactory.getLog(HomeController.class);
@@ -48,7 +56,12 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		
+		try {
+			System.out.println(userService.getAlluserService());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "home";
 	}
 	@RequestMapping(value="index" ,method=RequestMethod.GET )
@@ -57,5 +70,10 @@ public class HomeController {
 		//test commit
 		return new ModelAndView("newIndex");
 	}
-	
+	@RequestMapping(value="getaa" ,method=RequestMethod.GET )
+	public @ResponseBody List<User> userlist(HttpServletRequest request,
+			HttpServletResponse response)throws Exception{
+
+		return userService.getAlluserService();
+	}
 }

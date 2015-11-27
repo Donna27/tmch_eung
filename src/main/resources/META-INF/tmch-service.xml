@@ -5,4 +5,5 @@
 	http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="studentService" class="com.mycompany.tmch.service.impl.UserServiceImpl" />
+	<bean id="momService"	class="com.mycompany.tmch.service.impl.MomServiceImpl" />
 </beans>

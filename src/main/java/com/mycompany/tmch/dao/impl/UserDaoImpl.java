@@ -38,6 +38,8 @@ public class UserDaoImpl implements UserDao{
 		SQLQuery userlist=session.createSQLQuery(sql);
 		userlist.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
 		List<User> list=userlist.list();
+		session.flush();
+		session.clear();
 		return list;
 	}
 

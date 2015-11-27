@@ -2,18 +2,21 @@ $(document).ready(function(){
 	// setting value in input
 	$.ajax({
 		url : 'getMomProfile',
+		data : {momid : momid},
 		type : 'GET',
 		dataType : 'json',
 		success : function(data){
 			console.debug(data);
+			jsonObj=$.parseJSON(JSON.stringify(data));
+			console.log(jsonObj);
 			// mother
-			$('#momname').val(data.momProfile.f_name);
-			$('#momlname').val(data.momProfile.l_name);
-			$('#momid13').val(data.momProfile.id_13);
-			$('#emailmom').val(data.momProfile.email);
-			$('#telmom').val(data.momProfile.mobile);
-			$('#occurmom').val(data.momProfile.occupation);
-			$('#regionmom').val(data.momProfile.region);
+			$('#momname').val(jsonObj.mom_firstname);
+			$('#momlname').val(jsonObj.mom_lastname);
+			$('#momid13').val(jsonObj.mom_cid);
+//			$('#emailmom').val(jsonObj.email);
+			$('#telmom').val(jsonObj.mom_tel);
+			$('#occurmom').val(jsonObj.mom_occupation);
+			$('#regionmom').val(jsonObj.mom_religion);
 			
 			// father
 			$('#dadfname').val(data.momProfile.f_name_sponse);
