@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -56,6 +59,8 @@ public class Mom {
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "mom")
 //	@OneToMany( mappedBy = "mom")
 	private Set<Child> childList=new HashSet<Child>();
+	@OneToOne(mappedBy="mom_id",cascade= CascadeType.ALL)
+	private MomHealthHistory momhealthhistory;
 	public Mom(){}
 	
 	public Mom(int mom_id, String mom_firstname, String mom_lastname, String mom_cid, String mom_tel,
@@ -199,6 +204,15 @@ public class Mom {
 	public void setChildList(Set<Child> childList) {
 		this.childList = childList;
 	}
+	
+	public MomHealthHistory getMomhealthhistory() {
+		return momhealthhistory;
+	}
+
+	public void setMomhealthhistory(MomHealthHistory momhealthhistory) {
+		this.momhealthhistory = momhealthhistory;
+	}
+
 	@Override
 	public String toString() {
 		return "Mom [mom_id=" + mom_id + ", mom_firstname=" + mom_firstname + ", mom_lastname=" + mom_lastname

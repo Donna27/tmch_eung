@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.mycompany.tmch.dao.MomDao;
 import com.mycompany.tmch.model.Mom;
+import com.mycompany.tmch.model.MomHealthHistory;
 import com.mycompany.tmch.service.MomService;
 
 @Service
@@ -52,6 +53,16 @@ public class MomServiceImpl implements MomService{
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public MomHealthHistory getMomHealthHistoryDataService(int mom_id) {
+		try{
+		return momdao.getMomHealthHistoryData(mom_id);
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}	
 	}
 
 }

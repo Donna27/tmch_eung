@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	// set link mom profile
-	$('#momProfileLink').attr({'href':'newMomProfile?momid='+momid});
-	$('#momhealth').attr({'href':'newMomHealth?momid='+momid});
+	$('#momProfileLink').attr({'href':'momProfile?momid='+momid});
+	$('#momhealth').attr({'href':'momHealth?momid='+momid});
 	$('#momhistory').attr({'href':'newMomHistory?momid='+momid});
 	$('#momchildList').attr({'href':'newChildList?momid='+momid});
 	/*$('#momlistappoint').attr({'href':'newMomAppointment?momid='+momid});*/

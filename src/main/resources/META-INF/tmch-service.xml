@@ -6,4 +6,5 @@
 
 	<bean id="studentService" class="com.mycompany.tmch.service.impl.UserServiceImpl" />
 	<bean id="momService"	class="com.mycompany.tmch.service.impl.MomServiceImpl" />
+	<bean id="MailSenderService" class="com.mycompany.tmch.mail.service.MailSenderService" />
 </beans>

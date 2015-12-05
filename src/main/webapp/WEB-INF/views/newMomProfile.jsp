@@ -38,7 +38,7 @@
 		var momid='<%=request.getParameter("momid")%>';
 	</script>
 	<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/app/momProfile.js"></script>
-	<%-- <script type="text/javascript" src="<%=request.getContextPath()%>/javascript/app/momlink.js"></script> --%>
+	<script type="text/javascript" src="<%=request.getContextPath()%>/javascript/app/momlink.js"></script>
 
 </head>
 	<body>

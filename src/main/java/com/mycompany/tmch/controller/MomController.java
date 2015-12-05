@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.omg.PortableServer.REQUEST_PROCESSING_POLICY_ID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mycompany.tmch.jsonview.MomSearchJson;
+import com.mycompany.tmch.mail.service.IMailSenderService;
 import com.mycompany.tmch.model.Mom;
+import com.mycompany.tmch.model.MomHealthHistory;
 import com.mycompany.tmch.service.MomService;
 
 @Controller
@@ -28,7 +31,9 @@ public class MomController {
 
 	@Autowired
 	MomService momservice;
-
+	
+	@Autowired
+	IMailSenderService mailservice;
 	@RequestMapping(value = "/searchMom", method = RequestMethod.GET)
 	public String momSearchPage() {
 		List<Object[]> listMmo = momservice.getAllMom();
@@ -69,6 +74,9 @@ public class MomController {
 		Date date = new Date();
 		mother.setMom_create_datetime(new Timestamp(date.getTime()));
 		mother.setMom_modified_datetime(new Timestamp(date.getTime()));
+		MomHealthHistory momhis=new MomHealthHistory();
+		mother.setMomhealthhistory(momhis);
+		momhis.setMom_id(mother);
 		momservice.saveOrUpdateMomService(mother);
 	}
 
@@ -144,9 +152,10 @@ public class MomController {
 	public Mom getMomProfile(HttpServletRequest request,HttpServletResponse response)throws Exception{
 		String momid=request.getParameter("momid");
 		Mom mom=momservice.getMombyIdService(Integer.valueOf(momid));
+//		mailservice.crunchifyReadyToSendEmail("donna.ch27@gmail.com", "percussion27@hotmail.com", "test", "Do you have appointment?");
 		return mom;
 	}
-	/*@RequestMapping(value="updatemomprofile",method=RequestMethod.POST)
+	@RequestMapping(value="updatemomprofile",method=RequestMethod.POST)
 	public void updateMomProfile(HttpServletRequest request,HttpServletResponse response){
 		// setting key 
 		String momid=request.getParameter("momid");
@@ -189,7 +198,7 @@ public class MomController {
 //		mom1.setEmail(momemail);
 		mom1.setMom_tel(momtel);
 		mom1.setMom_occupation(momoccur);
-		mom1.setMom_religion(momregion);
+/*		mom1.setMom_religion(momregion);
 		
 		//setting spouse data
 		mom1.setDad_firstname(dadfname);
@@ -208,12 +217,27 @@ public class MomController {
 		mom.setLocality(locality);
 		mom.setDistric(distric);
 		mom.setProvince(province);
-		mom.setZipcode(zipcode);
+		mom.setZipcode(zipcode);*/
 		System.out.println(mom1.toString());
 		try {
 			momservice.saveOrUpdateMomService(mom1);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}*/
+	}
+	@RequestMapping(value="momHealth",method=RequestMethod.GET)
+	public String momHealthPage()throws Exception{
+		return "newMomHealth";
+	}
+	
+	@RequestMapping(value="getmomhealthhistory",method=RequestMethod.GET)
+	public MomHealthHistory getmomhealthhistory(HttpServletRequest request,HttpServletResponse response){
+		try{
+			String mom_id=request.getParameter("momid");
+			return momservice.getMomHealthHistoryDataService(Integer.valueOf(mom_id));
+		}catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

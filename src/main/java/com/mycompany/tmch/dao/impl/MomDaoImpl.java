@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.mycompany.tmch.dao.MomDao;
 import com.mycompany.tmch.model.Mom;
+import com.mycompany.tmch.model.MomHealthHistory;
 
 @Repository
 @Transactional
@@ -34,7 +35,8 @@ public class MomDaoImpl implements MomDao{
 	@Override
 	public void saveOrUpdateMomData(Mom mom)throws Exception {
 		Session session = sessionFactory.getCurrentSession();
-		session.save(mom);
+//		session.save(mom);
+		session.saveOrUpdate(mom);
 		
 	}
 
@@ -72,16 +74,6 @@ public class MomDaoImpl implements MomDao{
 		Criteria criteria=session.createCriteria(Mom.class);
 		criteria.add(Restrictions.eq("mom_id", id));
 		return (Mom) criteria.uniqueResult();
-	/*	String sql="select mom.* from mom where mom_id="+id;
-		SQLQuery q=session.createSQLQuery(sql);
-		q.setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP);
-		List<Mom> lisq=q.list();
-//		Mom mom =(Mom) q.list().get(0);
-		Mom mom=lisq.get(0);*/
-//		System.out.println("sdafsdf");
-		//query.addEntity("MomDataTable", MomDataTable.class);
-//		query
-//		return mom;
 	}
 
 	@Override
@@ -118,7 +110,12 @@ public class MomDaoImpl implements MomDao{
 				"left join child on mom.mom_id = child.mom_id\n"
 				+ "where (mom.mom_firstname like '%"+firstname+"%'\n"
 						+ "and mom.mom_lastname like '%"+lastname+"%')\n"
-						+ "or mom.mom_cid like'%"+cid+"%'";
+						+ "or mom.mom_cid like'%"+cid+"%'\n"+
+								"group by mom.mom_id   ,\n" +
+								"        mom.mom_firstname   ,\n" +
+								"        mom.mom_lastname   ,\n" +
+								"        mom.mom_cid   ,\n" +
+								"		 mom.mom_create_datetime ";
 		SQLQuery query = session.createSQLQuery(sql);
 		
 		//query.addEntity("MomDataTable", MomDataTable.class);
@@ -127,6 +124,14 @@ public class MomDaoImpl implements MomDao{
 		List<Mom> results = query.list();
 		
 		return results;
+	}
+
+	@Override
+	public MomHealthHistory getMomHealthHistoryData(int mom_id) throws Exception {
+		Session session =sessionFactory.getCurrentSession();
+		Criteria criteria=session.createCriteria(MomHealthHistory.class);
+		criteria.add(Restrictions.eq("mom_id", mom_id));
+		return (MomHealthHistory) criteria.uniqueResult();
 	}
 
 
